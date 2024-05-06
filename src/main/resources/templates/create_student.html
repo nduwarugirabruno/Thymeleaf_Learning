@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmls:th="http://www.thymeleaf.org" xmlns:xmls="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Management System</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <table class="table table-hover table-striped table-bordered w-100">
+            <caption class="caption-top">List of Students</caption>
+            <thead class="table-dark text-center">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="student : ${students}">
+                    <th scope="row" class="text-end" th:text="${students.indexOf(student) + 1}"></th>
+                    <td th:text="${student.firstName}"></td>
+                    <td th:text="${student.lastName}"></td>
+                    <td th:text="${student.email}"></td>
+                </tr>
+            </tbody>
+
+        </table>
+    </div>
+</div>
+</body>
+</html>
