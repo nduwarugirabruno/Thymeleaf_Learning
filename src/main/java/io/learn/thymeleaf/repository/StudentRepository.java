@@ -1,42 +1,19 @@
-package io.learn.thymeleaf.entity;
+package io.learn.thymeleaf.repository;
 
-import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import io.learn.thymeleaf.entity.Student;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@Entity(name = "Student")
-@Table(name = "Student")
-public class Student {
+import java.util.List;
+import java.util.UUID;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public interface StudentRepository extends JpaRepository<Student, UUID> {
+    @Query("select s from Student s where s.firstName like %?1%")
+    List<Student> findByFirstName(String firstName);
 
-    @Column(name = "first_name", nullable = false)
-    private String firstName;
+    @Query("select s from Student s where s.lastName like %?1%")
+    List<Student> findByLastName(String lastName);
 
-    @Column(name = "last_name")
-    private String lastName;
-
-    @Column(name = "email")
-    private String email;
-
-    public Student(String firstName, String lastName, String email) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-    }
-
-    @Override
-    public String toString() {
-        return "\tStudent ->" +
-                "\n\t\tid: " + id +
-                "\n\t\tfirstName: " + firstName +
-                "\n\t\tlastName: " + lastName +
-                "\n\t\temail: " + email;
-    }
+    @Query("select s from Student s where s.email like %?1%")
+    List<Student> findByEmail(String email);
 }
